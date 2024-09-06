@@ -1,0 +1,21 @@
+{
+  "name": "rigid-motion",
+  "version": "1.0.0",
+  "main": "builder.js",
+  "jest": {
+    "testEnvironment": "jest-environment-node",
+    "transform": {}
+  },
+  "scripts": {
+    "start": "node roto-translations-test.js",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest"
+  },
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "mathjs": "^13.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
