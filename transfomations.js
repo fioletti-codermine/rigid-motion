@@ -1,4 +1,4 @@
-import { matrix, multiply } from "mathjs";
+import { matrix, multiply, inv } from "mathjs";
 
 export function rotation_x(alfa) {
   return matrix([
@@ -46,4 +46,9 @@ export function combineTransformations(
     translation,
     multiply(rotation_z, multiply(rotation_y, rotation_x))
   );
+}
+
+// A respect to B based on third oject reference
+export function framePosition(R_B, R_A) {
+  return multiply(inv(R_A), R_B);
 }

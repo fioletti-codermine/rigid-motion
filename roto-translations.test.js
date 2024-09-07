@@ -4,7 +4,7 @@ import {
   rotation_z,
   translation,
   combineTransformations,
-} from "./matrices.js";
+} from "./transfomations.js";
 import { matrix, deepEqual, inv, multiply } from "mathjs";
 import { expectMatricesCloseTo } from "./test-helper.js";
 
@@ -69,7 +69,6 @@ describe("rototranslations", () => {
       [0, 0, 0, 1],
     ]);
     const x_rotation = rotation_x(Math.PI / 2);
-    // expect(rotateX.toArray()).toBeCloseTo(want);
     expectMatricesCloseTo(x_rotation, want);
   });
 
