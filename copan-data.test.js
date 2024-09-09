@@ -1,21 +1,23 @@
 import { det, dot, index, inv, matrix, multiply, range, subset } from "mathjs";
 import {
   H_IPHONE,
-  H_VISION,
-  IPHONE_VISION,
+  IPHONE_VISION_AT_T0,
   R_IPHONE,
-  R_VISION,
+  R_VISION_AT_T0,
+  VISION_AT_T1_VISION_AT_T0,
 } from "./copan-example";
-import {
-  framePosition as framePosition,
-  rotation_z,
-  translation,
-} from "./transfomations";
+import { framePosition, rotation_z, translation } from "./transfomations.js";
 import { expectMatricesCloseTo } from "./test-helper";
 
 describe("rototranslations", () => {
   test("valid homogeneous transformation matrices", () => {
-    [H_IPHONE, H_VISION, IPHONE_VISION, R_IPHONE, R_VISION].forEach((P) => {
+    [
+      H_IPHONE,
+      IPHONE_VISION_AT_T0,
+      R_IPHONE,
+      R_VISION_AT_T0,
+      VISION_AT_T1_VISION_AT_T0,
+    ].forEach((P) => {
       const determinant = det(P);
       const want = 1;
       expect(determinant).toBeCloseTo(want);
@@ -76,12 +78,17 @@ describe("rototranslations", () => {
     });
   });
   test("H respect to visor based on H respect to iPhone and a reference object", () => {
-    const V_IPHONE = framePosition(R_IPHONE, R_VISION);
+    const VISION_AT_T0_IPHONE = framePosition(R_IPHONE, R_VISION_AT_T0);
 
-    // P respect to A
-    const actual = multiply(inv(V_IPHONE), H_IPHONE);
+    const H_VISION_AT_T0 = multiply(inv(VISION_AT_T0_IPHONE), H_IPHONE);
 
-    expectMatricesCloseTo(actual, H_VISION);
+    // known VISION_AT_T1_VISION_AT_T0
+    const H_VISION_AT_T1 = multiply(
+      inv(VISION_AT_T1_VISION_AT_T0),
+      H_VISION_AT_T0
+    );
+
+    // Test???
   });
 });
 
